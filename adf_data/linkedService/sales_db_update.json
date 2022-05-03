@@ -1,17 +1,11 @@
 {
 	"name": "sales_db_update",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
 		"annotations": [],
 		"type": "AzureSqlDatabase",
 		"typeProperties": {
-			"connectionString": {
-				"type": "AzureKeyVaultSecret",
-				"store": {
-					"referenceName": "ADF_key_vault",
-					"type": "LinkedServiceReference"
-				},
-				"secretName": "ADLSKEY"
-			}
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=traininglakesynapse103.database.windows.net;Initial Catalog=master"
 		}
 	}
 }
