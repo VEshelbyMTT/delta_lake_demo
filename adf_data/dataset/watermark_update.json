@@ -1,5 +1,5 @@
 {
-	"name": "DelimitedText1",
+	"name": "watermark_update",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "TrainingLakeHouse",
