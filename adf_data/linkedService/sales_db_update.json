@@ -1,11 +1,11 @@
 {
 	"name": "sales_db_update",
-	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
 		"annotations": [],
 		"type": "AzureSqlDatabase",
 		"typeProperties": {
-			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=traininglakesynapse103.database.windows.net;Initial Catalog=master"
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=salesdb103.database.windows.net;Initial Catalog=sales_db"
 		}
-	}
+	},
+	"type": "Microsoft.DataFactory/factories/linkedservices"
 }
