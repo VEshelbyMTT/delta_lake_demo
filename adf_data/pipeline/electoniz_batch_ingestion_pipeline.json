@@ -480,7 +480,14 @@
 				"name": "Delete WebsiteTrackingLogs",
 				"description": "clean up the e-commerce website tracking logs that have been successfully ingested",
 				"type": "Delete",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Copy WebsiteTrackingData",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
