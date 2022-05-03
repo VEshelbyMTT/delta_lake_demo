@@ -21,6 +21,10 @@
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
+					"pipeline": {
+						"referenceName": "SalesDB_pipeline",
+						"type": "PipelineReference"
+					},
 					"waitOnCompletion": true
 				}
 			},
@@ -30,6 +34,10 @@
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Currency_pipeline",
+						"type": "PipelineReference"
+					},
 					"waitOnCompletion": true
 				}
 			},
