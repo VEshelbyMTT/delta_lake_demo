@@ -7,19 +7,27 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "trainingadf103"
 		},
-		"AzureDataLakeStorage1_accountKey": {
+		"TrainingLakeHouse_accountKey": {
 			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
+			"metadata": "Secure string for 'accountKey' of 'TrainingLakeHouse'"
+		},
+		"sales_db_update_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'sales_db_update'"
 		},
 		"AzureSqlDatabase1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
 		},
+		"salesdbsource_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'salesdbsource'"
+		},
 		"ADF_key_vault_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://trainingkeyvault103.vault.azure.net/"
 		},
-		"AzureDataLakeStorage1_properties_typeProperties_url": {
+		"TrainingLakeHouse_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://traininglakehouse103.dfs.core.windows.net"
 		},
@@ -46,17 +54,18 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage1')]",
+			"name": "[concat(parameters('factoryName'), '/TrainingLakeHouse')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
+				"description": "destination linked service ",
 				"annotations": [],
 				"type": "AzureBlobFS",
 				"typeProperties": {
-					"url": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]",
+					"url": "[parameters('TrainingLakeHouse_properties_typeProperties_url')]",
 					"accountKey": {
 						"type": "SecureString",
-						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
+						"value": "[parameters('TrainingLakeHouse_accountKey')]"
 					}
 				}
 			},
@@ -73,6 +82,19 @@
 					"url": "[parameters('geoHTTPsource_properties_typeProperties_url')]",
 					"enableServerCertificateValidation": true,
 					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/sales_db_update')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('sales_db_update_connectionString')]"
 				}
 			},
 			"dependsOn": []
@@ -108,7 +130,7 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage1",
+					"referenceName": "TrainingLakeHouse",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
@@ -129,7 +151,7 @@
 				"schema": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
+				"[concat(variables('factoryId'), '/linkedServices/TrainingLakeHouse')]"
 			]
 		},
 		{
@@ -142,6 +164,29 @@
 				"type": "AzureSqlDatabase",
 				"typeProperties": {
 					"connectionString": "[parameters('AzureSqlDatabase1_connectionString')]",
+					"password": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "ADF_key_vault",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "sales-db-key"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADF_key_vault')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/salesdbsource')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('salesdbsource_connectionString')]",
 					"password": {
 						"type": "AzureKeyVaultSecret",
 						"store": {
@@ -262,6 +307,24 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/GeoCSVSource')]",
 				"[concat(variables('factoryId'), '/datasets/GeoCSVSync')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dbsales_all')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "salesdbsource",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/salesdbsource')]"
 			]
 		},
 		{
@@ -431,6 +494,82 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/sales_db_watermark')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "table_name",
+						"type": "varchar"
+					},
+					{
+						"name": "watermark_value",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "watermarktable"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Prepare_SQL_databases')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Find SalesDBTables",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "SELECT QUOTENAME(table_schema)+'.'+QUOTENAME(table_name) AS Table_Name FROM information_Schema.tables WHERE table_name not in ('watermarktable', 'database_firewall_rules')",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "dbsales_all",
+								"type": "DatasetReference",
+								"parameters": {}
+							},
+							"firstRowOnly": true
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/dbsales_all')]"
 			]
 		}
 	]

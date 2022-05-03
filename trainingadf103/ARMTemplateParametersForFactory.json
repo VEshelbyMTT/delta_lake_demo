@@ -5,16 +5,22 @@
 		"factoryName": {
 			"value": "trainingadf103"
 		},
-		"AzureDataLakeStorage1_accountKey": {
+		"AzureSqlDatabase1_connectionString": {
 			"value": ""
 		},
-		"AzureSqlDatabase1_connectionString": {
+		"TrainingLakeHouse_accountKey": {
+			"value": ""
+		},
+		"sales_db_update_connectionString": {
+			"value": ""
+		},
+		"salesdbsource_connectionString": {
 			"value": ""
 		},
 		"ADF_key_vault_properties_typeProperties_baseUrl": {
 			"value": "https://trainingkeyvault103.vault.azure.net/"
 		},
-		"AzureDataLakeStorage1_properties_typeProperties_url": {
+		"TrainingLakeHouse_properties_typeProperties_url": {
 			"value": "https://traininglakehouse103.dfs.core.windows.net"
 		},
 		"geoHTTPsource_properties_typeProperties_url": {
