@@ -1,0 +1,13 @@
+{
+	"name": "restsource",
+	"properties": {
+		"description": "a linked service for the currency conversion data",
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://free.currconv.com/api/v7/convert?",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
