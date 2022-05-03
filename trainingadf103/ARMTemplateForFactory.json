@@ -1427,7 +1427,7 @@
 				"type": "RestResource",
 				"typeProperties": {
 					"relativeUrl": {
-						"value": "convert?q=USD_@{item().Currency}&compact=ultra&apiKey=94e059327a7c4d8dc333",
+						"value": "convert?q=USD_@{item().Currency}&compact=ultra&apiKey=1d21a1eb2da76ab7f6f2",
 						"type": "Expression"
 					}
 				},
