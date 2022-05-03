@@ -1,0 +1,9 @@
+{
+	"name": "trainingadf103",
+	"location": "germanywestcentral",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "a42ac5fc-8f2e-467f-9a26-a903175de197",
+		"tenantId": "72f988bf-86f1-41af-91ab-2d7cd011db47"
+	}
+}
