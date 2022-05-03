@@ -1,0 +1,17 @@
+{
+	"name": "sales_db_update",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "ADF_key_vault",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "ADLSKEY"
+			}
+		}
+	}
+}
