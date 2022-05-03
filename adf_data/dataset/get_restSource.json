@@ -8,7 +8,10 @@
 		"annotations": [],
 		"type": "RestResource",
 		"typeProperties": {
-			"relativeUrl": "convert?q=USD_@{item().Currency}&compact=ultra&apiKey=XXXXXXXXXXX"
+			"relativeUrl": {
+				"value": "convert?q=USD_@{item().Currency}&compact=ultra&apiKey=94e059327a7c4d8dc333",
+				"type": "Expression"
+			}
 		},
 		"schema": []
 	}

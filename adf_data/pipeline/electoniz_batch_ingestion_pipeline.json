@@ -26,7 +26,7 @@
 			},
 			{
 				"name": "Get Geo-location Mapping",
-				"description": "Downloading Geo-location data\n\nGeo-location data is necessary to map the IP addresses from the web server logs to the country of origin. This data can be downloaded from an HTTP source. ",
+				"description": "Downloading Geo-location data\n\nGeo-location data is necessary to map the IP addresses from the web server logs to the country of origin. This data can be downloaded from an HTTP source. \n\nnote: run pipeline multiple times causes error. delete file in blob storage for testing purposes. ",
 				"type": "Copy",
 				"dependsOn": [
 					{
@@ -112,7 +112,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT QUOTENAME(table_schema)+'.'+QUOTENAME(table_name) \nAS Table_Name\nFROM \ninformation_Schema.tables \nWHERE table_name not in ('watermarktable', 'database_firewall_rules')",
+						"sqlReaderQuery": "SELECT QUOTENAME(table_schema)+'.'+QUOTENAME(table_name) \nAS Table_Name\nFROM \ninformation_Schema.tables \nWHERE table_name not in ('watermarktable', 'ipv6_database_firewall_rules',\n'database_firewall_rules')",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -120,7 +120,7 @@
 						"referenceName": "dbsales_all",
 						"type": "DatasetReference"
 					},
-					"firstRowOnly": true
+					"firstRowOnly": false
 				}
 			},
 			{
@@ -348,7 +348,7 @@
 						"referenceName": "dbsales_all",
 						"type": "DatasetReference"
 					},
-					"firstRowOnly": true
+					"firstRowOnly": false
 				}
 			},
 			{
