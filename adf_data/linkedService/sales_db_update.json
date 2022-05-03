@@ -4,7 +4,7 @@
 		"annotations": [],
 		"type": "AzureSqlDatabase",
 		"typeProperties": {
-			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=salesdb103.database.windows.net;Initial Catalog=sales_db"
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=salesdb103.database.windows.net;Initial Catalog=master"
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/linkedservices"
