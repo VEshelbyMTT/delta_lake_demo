@@ -17,6 +17,9 @@
 		"salesdbsource_connectionString": {
 			"value": ""
 		},
+		"websitetrackinglogs_connectionString": {
+			"value": ""
+		},
 		"ADF_key_vault_properties_typeProperties_baseUrl": {
 			"value": "https://trainingkeyvault103.vault.azure.net/"
 		},
@@ -25,6 +28,9 @@
 		},
 		"geoHTTPsource_properties_typeProperties_url": {
 			"value": "https://raw.githubusercontent.com/PacktPublishing/Data-Engineering-with-Apache-Spark-Delta-Lake-and-Lakehouse/main/project/prep/iplocation/IP2LOCATION-LITE-DB1.CSV"
+		},
+		"restsource_properties_typeProperties_url": {
+			"value": "https://free.currconv.com/api/v7/convert?"
 		},
 		"containerUri": {
 			"value": ""

@@ -23,6 +23,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'salesdbsource'"
 		},
+		"websitetrackinglogs_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'websitetrackinglogs'"
+		},
 		"ADF_key_vault_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://trainingkeyvault103.vault.azure.net/"
@@ -34,6 +38,10 @@
 		"geoHTTPsource_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://raw.githubusercontent.com/PacktPublishing/Data-Engineering-with-Apache-Spark-Delta-Lake-and-Lakehouse/main/project/prep/iplocation/IP2LOCATION-LITE-DB1.CSV"
+		},
+		"restsource_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://free.currconv.com/api/v7/convert?"
 		},
 		"containerUri": {
 			"type": "string",
@@ -68,6 +76,9 @@
 					"sales_db_update_connectionString": {
 						"value": "[parameters('sales_db_update_connectionString')]"
 					},
+					"websitetrackinglogs_connectionString": {
+						"value": "[parameters('websitetrackinglogs_connectionString')]"
+					},
 					"AzureSqlDatabase1_connectionString": {
 						"value": "[parameters('AzureSqlDatabase1_connectionString')]"
 					},
@@ -82,10 +93,33 @@
 					},
 					"geoHTTPsource_properties_typeProperties_url": {
 						"value": "[parameters('geoHTTPsource_properties_typeProperties_url')]"
+					},
+					"restsource_properties_typeProperties_url": {
+						"value": "[parameters('restsource_properties_typeProperties_url')]"
 					}
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "trainingadf103_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'trainingadf103_ArmTemplate_0')]"
+			]
 		}
 	]
 }

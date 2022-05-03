@@ -23,6 +23,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'salesdbsource'"
 		},
+		"websitetrackinglogs_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'websitetrackinglogs'"
+		},
 		"ADF_key_vault_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://trainingkeyvault103.vault.azure.net/"
@@ -34,6 +38,10 @@
 		"geoHTTPsource_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://raw.githubusercontent.com/PacktPublishing/Data-Engineering-with-Apache-Spark-Delta-Lake-and-Lakehouse/main/project/prep/iplocation/IP2LOCATION-LITE-DB1.CSV"
+		},
+		"restsource_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://free.currconv.com/api/v7/convert?"
 		}
 	},
 	"variables": {
@@ -71,6 +79,7 @@
 					},
 					{
 						"name": "Get Geo-location Mapping",
+						"description": "Geo-location data is necessary to map the IP addresses from the web server logs to the country of origin. This data can be downloaded from an HTTP source. The geo-location data is in a structured format.",
 						"type": "Copy",
 						"dependsOn": [
 							{
@@ -136,7 +145,8 @@
 						]
 					},
 					{
-						"name": "Find SalesDBTables",
+						"name": "Get SalesDBTables",
+						"description": "Sales database: This database stores data for sales that happen in brick-and-mortar stores throughout the US. The sales database is a Microsoft SQL server hosted on Azure SQL.",
 						"type": "Lookup",
 						"dependsOn": [
 							{
@@ -170,12 +180,12 @@
 						}
 					},
 					{
-						"name": "Set watermark",
+						"name": "Set Watermark",
 						"description": "RETURNS: \ntable name as Item\n\nFor each table, it will perform the following operations:\n\nLook up the old watermark and set the new watermark, ingest the table from the old watermark to the new watermark, and finally, update the watermark in the control table.",
 						"type": "ForEach",
 						"dependsOn": [
 							{
-								"activity": "Find SalesDBTables",
+								"activity": "Get SalesDBTables",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -184,7 +194,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"items": {
-								"value": "@activity('Find SalesDBTables').output.value",
+								"value": "@activity('Get SalesDBTables').output.value",
 								"type": "Expression"
 							},
 							"activities": [
@@ -365,6 +375,204 @@
 								}
 							]
 						}
+					},
+					{
+						"name": "Get Currencies",
+						"description": "Electroniz sells products in varying currencies on the online store. The currency conversion data is required to convert all sales into USD. The conversion data is available using REST API calls. The currency conversion data is in a semi-structured format.",
+						"type": "Lookup",
+						"dependsOn": [
+							{
+								"activity": "Set Watermark",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "SELECT DISTINCT currency FROM [dbo].[store_orders] WHERE currency <> 'USD'",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "dbsales_all",
+								"type": "DatasetReference",
+								"parameters": {}
+							},
+							"firstRowOnly": true
+						}
+					},
+					{
+						"name": "ConvertToUSD",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Get Currencies",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Get Currencies').output.value",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "Get Currency Value",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "RestSource",
+											"httpRequestTimeout": "00:01:40",
+											"requestInterval": "00.00:00:00.010",
+											"requestMethod": "GET",
+											"paginationRules": {
+												"supportRFC5988": "true"
+											}
+										},
+										"sink": {
+											"type": "DelimitedTextSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "DelimitedTextWriteSettings",
+												"quoteAllText": true,
+												"fileExtension": ".txt"
+											}
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "get_restSource",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "CurrencyCSV",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									]
+								}
+							]
+						}
+					},
+					{
+						"name": "Copy WebsiteTrackingData",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "ConvertToUSD",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "JsonSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false,
+									"prefix": "electoniz_access"
+								},
+								"formatSettings": {
+									"type": "JsonReadSettings"
+								}
+							},
+							"sink": {
+								"type": "JsonSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "JsonWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "TrackingJSON",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "TrackingJSONSync",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					},
+					{
+						"name": "Delete WebsiteTrackingLogs",
+						"description": "clean up the e-commerce website tracking logs that have been successfully ingested",
+						"type": "Delete",
+						"dependsOn": [
+							{
+								"activity": "Copy WebsiteTrackingData",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "TrackingJSON",
+								"type": "DatasetReference",
+								"parameters": {}
+							},
+							"enableLogging": false,
+							"storeSettings": {
+								"type": "AzureBlobStorageReadSettings",
+								"recursive": true,
+								"enablePartitionDiscovery": false
+							}
+						}
 					}
 				],
 				"policy": {
@@ -378,8 +586,42 @@
 				"[concat(variables('factoryId'), '/datasets/GeoCSVSource')]",
 				"[concat(variables('factoryId'), '/datasets/GeoCSVSync')]",
 				"[concat(variables('factoryId'), '/datasets/dbsales_all')]",
+				"[concat(variables('factoryId'), '/datasets/TrackingJSON')]",
+				"[concat(variables('factoryId'), '/datasets/TrackingJSONSync')]",
 				"[concat(variables('factoryId'), '/datasets/watermark_update')]",
-				"[concat(variables('factoryId'), '/linkedServices/salesdbsource')]"
+				"[concat(variables('factoryId'), '/linkedServices/salesdbsource')]",
+				"[concat(variables('factoryId'), '/datasets/get_restSource')]",
+				"[concat(variables('factoryId'), '/datasets/CurrencyCSV')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CurrencyCSV')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "TrainingLakeHouse",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": {
+							"value": "currency/@{item().Currency}/@{formatDateTime(utcnow(),'yyyy')}/@{formatDateTime(utcnow(),'MM')}/@{formatDateTime(utcnow(),'dd')}/@{formatDateTime(utcnow(),'HH')}",
+							"type": "Expression"
+						},
+						"fileSystem": "bronze"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/TrainingLakeHouse')]"
 			]
 		},
 		{
@@ -438,6 +680,75 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/TrackingJSON')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "websitetrackinglogs",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "ecommercelogs"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"time": {
+							"type": "string"
+						},
+						"remote_ip": {
+							"type": "string"
+						},
+						"request": {
+							"type": "string"
+						},
+						"response": {
+							"type": "integer"
+						},
+						"agent": {
+							"type": "string"
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/websitetrackinglogs')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/TrackingJSONSync')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "TrainingLakeHouse",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": {
+							"value": "logs/@{formatDateTime(utcnow(),'yyyy')}/@{formatDateTime(utcnow(),'MM')}/@{formatDateTime(utcnow(),'dd')}/@{formatDateTime(utcnow(),'HH')}",
+							"type": "Expression"
+						},
+						"fileSystem": "bronze"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/TrainingLakeHouse')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/dbsales_all')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -453,6 +764,29 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/salesdbsource')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/get_restSource')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "restsource",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {
+					"relativeUrl": {
+						"value": "convert?q=USD_@{item().Currency}&compact=ultra&apiKey=XXXXXXXXXXX",
+						"type": "Expression"
+					}
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/restsource')]"
 			]
 		},
 		{
@@ -768,6 +1102,22 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/restsource')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "a linked service for the currency conversion data",
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('restsource_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/sales_db_update')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -802,6 +1152,20 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/ADF_key_vault')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/websitetrackinglogs')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "e-commerce website tracking source linked servic",
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('websitetrackinglogs_connectionString')]"
+				}
+			},
+			"dependsOn": []
 		}
 	]
 }
