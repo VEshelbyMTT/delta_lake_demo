@@ -26,7 +26,7 @@
 			},
 			{
 				"name": "Get Geo-location Mapping",
-				"description": "Geo-location data is necessary to map the IP addresses from the web server logs to the country of origin. This data can be downloaded from an HTTP source. The geo-location data is in a structured format.",
+				"description": "Downloading Geo-location data\n\nGeo-location data is necessary to map the IP addresses from the web server logs to the country of origin. This data can be downloaded from an HTTP source. The geo-location data is in a structured format.",
 				"type": "Copy",
 				"dependsOn": [
 					{
