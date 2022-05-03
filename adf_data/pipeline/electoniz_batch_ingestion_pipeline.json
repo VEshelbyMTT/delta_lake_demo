@@ -26,6 +26,7 @@
 			},
 			{
 				"name": "Get Geo-location Mapping",
+				"description": "Geo-location data is necessary to map the IP addresses from the web server logs to the country of origin. This data can be downloaded from an HTTP source. The geo-location data is in a structured format.",
 				"type": "Copy",
 				"dependsOn": [
 					{
@@ -89,7 +90,8 @@
 				]
 			},
 			{
-				"name": "Find SalesDBTables",
+				"name": "Get SalesDBTables",
+				"description": "Sales database: This database stores data for sales that happen in brick-and-mortar stores throughout the US. The sales database is a Microsoft SQL server hosted on Azure SQL.",
 				"type": "Lookup",
 				"dependsOn": [
 					{
@@ -122,12 +124,12 @@
 				}
 			},
 			{
-				"name": "Set watermark",
+				"name": "Set Watermark",
 				"description": "RETURNS: \ntable name as Item\n\nFor each table, it will perform the following operations:\n\nLook up the old watermark and set the new watermark, ingest the table from the old watermark to the new watermark, and finally, update the watermark in the control table.",
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Find SalesDBTables",
+						"activity": "Get SalesDBTables",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -136,7 +138,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Find SalesDBTables').output.value",
+						"value": "@activity('Get SalesDBTables').output.value",
 						"type": "Expression"
 					},
 					"activities": [
@@ -317,8 +319,16 @@
 			},
 			{
 				"name": "Find Currencies",
+				"description": "Electroniz sells products in varying currencies on the online store. The currency conversion data is required to convert all sales into USD. The conversion data is available using REST API calls. The currency conversion data is in a semi-structured format.",
 				"type": "Lookup",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Set Watermark",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -342,7 +352,7 @@
 				}
 			},
 			{
-				"name": "ForEach1",
+				"name": "ConvertToUSD",
 				"type": "ForEach",
 				"dependsOn": [
 					{
@@ -372,8 +382,40 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
+								"source": {
+									"type": "RestSource",
+									"httpRequestTimeout": "00:01:40",
+									"requestInterval": "00.00:00:00.010",
+									"requestMethod": "GET",
+									"paginationRules": {
+										"supportRFC5988": "true"
+									}
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
 								"enableStaging": false
-							}
+							},
+							"inputs": [
+								{
+									"referenceName": "get_restSource",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "CurrencyCSV",
+									"type": "DatasetReference"
+								}
+							]
 						}
 					]
 				}

@@ -1,0 +1,15 @@
+{
+	"name": "get_restSource",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "restsource",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": "convert?q=USD_@{item().Currency}&compact=ultra&apiKey=XXXXXXXXXXX"
+		},
+		"schema": []
+	}
+}
