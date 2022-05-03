@@ -1,0 +1,27 @@
+{
+	"name": "sales_db_watermark",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "table_name",
+				"type": "varchar"
+			},
+			{
+				"name": "watermark_value",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "watermarktable"
+		}
+	}
+}

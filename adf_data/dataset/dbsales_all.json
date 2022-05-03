@@ -1,0 +1,12 @@
+{
+	"name": "dbsales_all",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "salesdbsource",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}

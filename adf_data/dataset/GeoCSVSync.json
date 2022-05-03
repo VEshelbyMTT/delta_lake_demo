@@ -2,7 +2,7 @@
 	"name": "GeoCSVSync",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "AzureDataLakeStorage1",
+			"referenceName": "TrainingLakeHouse",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
