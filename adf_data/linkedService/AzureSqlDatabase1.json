@@ -1,0 +1,19 @@
+{
+	"name": "AzureSqlDatabase1",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=salesdb103.database.windows.net;Initial Catalog=sales_db;User ID=salesadmin",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "ADF_key_vault",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "sales-db-key"
+			}
+		},
+		"description": "salesDBSource"
+	}
+}
