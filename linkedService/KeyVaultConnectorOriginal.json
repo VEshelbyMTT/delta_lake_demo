@@ -1,0 +1,10 @@
+{
+	"name": "KeyVaultConnectorOriginal",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://trainingkeyvault104.vault.azure.net/"
+		}
+	}
+}
