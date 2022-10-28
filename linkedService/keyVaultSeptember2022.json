@@ -1,0 +1,11 @@
+{
+	"name": "keyVaultSeptember2022",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://trainingkeyvault103.vault.azure.net/"
+		}
+	}
+}

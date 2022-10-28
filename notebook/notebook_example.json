@@ -1,0 +1,252 @@
+{
+	"name": "notebook_example",
+	"properties": {
+		"folder": {
+			"name": "dp203_M4"
+		},
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "QueenSpark1",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"runAsWorkspaceSystemIdentity": false,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2",
+				"spark.autotune.trackingId": "8ebfd946-77ce-46b1-bfdb-2d9dc643d743"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"synapse_widget": {
+				"version": "0.1",
+				"state": {
+					"ab3d2a57-b88b-4a14-9ad9-4e7206dcb1fe": {
+						"type": "Synapse.DataFrame",
+						"sync_state": {
+							"table": {
+								"rows": [
+									{
+										"0": "cinammon roll",
+										"1": "9",
+										"2": "pastry"
+									},
+									{
+										"0": "croissant",
+										"1": "7",
+										"2": "pastry"
+									},
+									{
+										"0": "cereal",
+										"1": "4",
+										"2": "other"
+									}
+								],
+								"schema": [
+									{
+										"key": "0",
+										"name": "breakfast",
+										"type": "string"
+									},
+									{
+										"key": "1",
+										"name": "tastiness",
+										"type": "bigint"
+									},
+									{
+										"key": "2",
+										"name": "class",
+										"type": "string"
+									}
+								],
+								"truncated": false
+							},
+							"isSummary": false,
+							"language": "scala"
+						},
+						"persist_state": {
+							"view": {
+								"type": "details",
+								"chartOptions": {
+									"chartType": "bar",
+									"aggregationType": "avg",
+									"categoryFieldKeys": [
+										"2"
+									],
+									"seriesFieldKeys": [
+										"1"
+									],
+									"isStacked": false
+								}
+							}
+						}
+					}
+				}
+			},
+			"enableDebugMode": false,
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/4a539c97-ed16-4e64-990d-eecb5e57061e/resourceGroups/Delta_Lake_Example/providers/Microsoft.Synapse/workspaces/traininglakesynapse103/bigDataPools/QueenSpark1",
+				"name": "QueenSpark1",
+				"type": "Spark",
+				"endpoint": "https://traininglakesynapse103.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/QueenSpark1",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net",
+					"authHeader": null
+				},
+				"sparkVersion": "3.2",
+				"nodeCount": 10,
+				"cores": 4,
+				"memory": 28,
+				"extraHeader": null
+			},
+			"sessionKeepAliveTimeout": 30
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"data_example = [\r\n",
+					"    (\"cinammon roll\",9,\"pastry\"),\r\n",
+					"    (\"croissant\",7,\"pastry\"),\r\n",
+					"    (\"cereal\",4, \"other\")\r\n",
+					"    ]\r\n",
+					"columns = (\"breakfast\",\"tastiness\",\"class\")\r\n",
+					"\r\n",
+					"df = spark.createDataFrame(data_example,columns)"
+				],
+				"execution_count": 21
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"df.show()"
+				],
+				"execution_count": 22
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					"display(df)"
+				],
+				"execution_count": 18
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"import datetime as dt\r\n",
+					"today=dt.datetime.today().strftime('%Y%m%d')\r\n",
+					"\r\n",
+					"table_name = f\"dp203_{today}\"\r\n",
+					"\r\n",
+					"print(table_name)\r\n",
+					""
+				],
+				"execution_count": 43
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"df.createOrReplaceTempView(table_name)\r\n",
+					""
+				],
+				"execution_count": 39
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"microsoft": {
+						"language": "sparksql"
+					},
+					"collapsed": false
+				},
+				"source": [
+					"%%sql\r\n",
+					"\r\n",
+					"SELECT * FROM dp203_20220914"
+				],
+				"execution_count": 44
+			}
+		]
+	}
+}

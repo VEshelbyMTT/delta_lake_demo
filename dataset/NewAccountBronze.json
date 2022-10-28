@@ -1,0 +1,18 @@
+{
+	"name": "NewAccountBronze",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "NewAccount",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "bronze"
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

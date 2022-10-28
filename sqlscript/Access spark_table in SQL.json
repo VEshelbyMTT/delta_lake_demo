@@ -1,0 +1,20 @@
+{
+	"name": "Access spark_table in SQL",
+	"properties": {
+		"folder": {
+			"name": "dp203_M4"
+		},
+		"content": {
+			"query": "SELECT TOP(10)[passengerCount],\n[AvgTripDistance],\n[SumTripDistance]\nFROM [nycAgg].[dbo].[passengercountaggregates]\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "master",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

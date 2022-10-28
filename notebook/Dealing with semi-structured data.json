@@ -1,0 +1,603 @@
+{
+	"name": "Dealing with semi-structured data",
+	"properties": {
+		"folder": {
+			"name": "dp203_M4"
+		},
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "QueenSpark1",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"runAsWorkspaceSystemIdentity": false,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2",
+				"spark.autotune.trackingId": "1b789be1-a761-40b8-bb45-bd3087b17fee"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"synapse_widget": {
+				"version": "0.1",
+				"state": {
+					"22261539-d9d0-43df-88d4-12210993bfa8": {
+						"type": "Synapse.DataFrame",
+						"sync_state": {
+							"table": {
+								"rows": [
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5001",
+										"4": "None",
+										"5": "1001",
+										"6": "Normal"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5001",
+										"4": "None",
+										"5": "1002",
+										"6": "Chocolatey"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5001",
+										"4": "None",
+										"5": "1003",
+										"6": "Blueberry"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5001",
+										"4": "None",
+										"5": "1004",
+										"6": "Raisins"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5001",
+										"4": "None",
+										"5": "1005",
+										"6": "Cardammon"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5002",
+										"4": "Sugar-Free Cinammon",
+										"5": "1001",
+										"6": "Normal"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5002",
+										"4": "Sugar-Free Cinammon",
+										"5": "1002",
+										"6": "Chocolatey"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5002",
+										"4": "Sugar-Free Cinammon",
+										"5": "1003",
+										"6": "Blueberry"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5002",
+										"4": "Sugar-Free Cinammon",
+										"5": "1004",
+										"6": "Raisins"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5002",
+										"4": "Sugar-Free Cinammon",
+										"5": "1005",
+										"6": "Cardammon"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5005",
+										"4": "Sugar",
+										"5": "1001",
+										"6": "Normal"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5005",
+										"4": "Sugar",
+										"5": "1002",
+										"6": "Chocolatey"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5005",
+										"4": "Sugar",
+										"5": "1003",
+										"6": "Blueberry"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5005",
+										"4": "Sugar",
+										"5": "1004",
+										"6": "Raisins"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5005",
+										"4": "Sugar",
+										"5": "1005",
+										"6": "Cardammon"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5007",
+										"4": "Powdered Sugar",
+										"5": "1001",
+										"6": "Normal"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5007",
+										"4": "Powdered Sugar",
+										"5": "1002",
+										"6": "Chocolatey"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5007",
+										"4": "Powdered Sugar",
+										"5": "1003",
+										"6": "Blueberry"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5007",
+										"4": "Powdered Sugar",
+										"5": "1004",
+										"6": "Raisins"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5007",
+										"4": "Powdered Sugar",
+										"5": "1005",
+										"6": "Cardammon"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5006",
+										"4": "Chocolate with Sprinkles",
+										"5": "1001",
+										"6": "Normal"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5006",
+										"4": "Chocolate with Sprinkles",
+										"5": "1002",
+										"6": "Chocolatey"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5006",
+										"4": "Chocolate with Sprinkles",
+										"5": "1003",
+										"6": "Blueberry"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5006",
+										"4": "Chocolate with Sprinkles",
+										"5": "1004",
+										"6": "Raisins"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5006",
+										"4": "Chocolate with Sprinkles",
+										"5": "1005",
+										"6": "Cardammon"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5003",
+										"4": "Cinammon Sugar",
+										"5": "1001",
+										"6": "Normal"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5003",
+										"4": "Cinammon Sugar",
+										"5": "1002",
+										"6": "Chocolatey"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5003",
+										"4": "Cinammon Sugar",
+										"5": "1003",
+										"6": "Blueberry"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5003",
+										"4": "Cinammon Sugar",
+										"5": "1004",
+										"6": "Raisins"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5003",
+										"4": "Cinammon Sugar",
+										"5": "1005",
+										"6": "Cardammon"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5004",
+										"4": "Maple",
+										"5": "1001",
+										"6": "Normal"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5004",
+										"4": "Maple",
+										"5": "1002",
+										"6": "Chocolatey"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5004",
+										"4": "Maple",
+										"5": "1003",
+										"6": "Blueberry"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5004",
+										"4": "Maple",
+										"5": "1004",
+										"6": "Raisins"
+									},
+									{
+										"0": "0001",
+										"1": "Pastry",
+										"2": "0.7",
+										"3": "5004",
+										"4": "Maple",
+										"5": "1005",
+										"6": "Cardammon"
+									}
+								],
+								"schema": [
+									{
+										"key": "0",
+										"name": "main_id",
+										"type": "string"
+									},
+									{
+										"key": "1",
+										"name": "name",
+										"type": "string"
+									},
+									{
+										"key": "2",
+										"name": "ppu",
+										"type": "double"
+									},
+									{
+										"key": "3",
+										"name": "topping_id",
+										"type": "string"
+									},
+									{
+										"key": "4",
+										"name": "topping_type",
+										"type": "string"
+									},
+									{
+										"key": "5",
+										"name": "batter_id",
+										"type": "string"
+									},
+									{
+										"key": "6",
+										"name": "battter_type",
+										"type": "string"
+									}
+								],
+								"truncated": false
+							},
+							"isSummary": false,
+							"language": "scala"
+						},
+						"persist_state": {
+							"view": {
+								"type": "details",
+								"chartOptions": {
+									"chartType": "bar",
+									"aggregationType": "sum",
+									"categoryFieldKeys": [
+										"0"
+									],
+									"seriesFieldKeys": [
+										"2"
+									],
+									"isStacked": false
+								}
+							}
+						}
+					}
+				}
+			},
+			"enableDebugMode": false,
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "scala"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/4a539c97-ed16-4e64-990d-eecb5e57061e/resourceGroups/Delta_Lake_Example/providers/Microsoft.Synapse/workspaces/traininglakesynapse103/bigDataPools/QueenSpark1",
+				"name": "QueenSpark1",
+				"type": "Spark",
+				"endpoint": "https://traininglakesynapse103.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/QueenSpark1",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net",
+					"authHeader": null
+				},
+				"sparkVersion": "3.2",
+				"nodeCount": 10,
+				"cores": 4,
+				"memory": 28,
+				"extraHeader": null
+			},
+			"sessionKeepAliveTimeout": 30
+		},
+		"cells": [
+			{
+				"cell_type": "markdown",
+				"metadata": {
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"# Nested JSON to DataFrame\r\n",
+					"\r\n",
+					"This example notebook shows you how to flatten nested JSON, using only `$\"column.*\"` and `explode` methods.\r\n",
+					"\r\n",
+					"Start by passing the sample JSON string to the reader."
+				]
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"val json =\"\"\"\r\n",
+					"{\r\n",
+					"    \"id\": \"0001\",\r\n",
+					"    \"type\": \"cinnamon roll\",\r\n",
+					"    \"name\": \"Pastry\",\r\n",
+					"    \"ppu\": 0.70,\r\n",
+					"    \"batters\":\r\n",
+					"        {\r\n",
+					"            \"batter\":\r\n",
+					"                [\r\n",
+					"                    { \"id\": \"1001\", \"type\": \"Normal\" },\r\n",
+					"                    { \"id\": \"1002\", \"type\": \"Chocolatey\" },\r\n",
+					"                    { \"id\": \"1003\", \"type\": \"Blueberry\" },\r\n",
+					"                    { \"id\": \"1004\", \"type\": \"Raisins\" },\r\n",
+					"                    { \"id\": \"1005\", \"type\": \"Cardammon\" }\r\n",
+					"\r\n",
+					"                ]\r\n",
+					"        },\r\n",
+					"    \"topping\":\r\n",
+					"        [\r\n",
+					"            { \"id\": \"5001\", \"type\": \"None\" },\r\n",
+					"            { \"id\": \"5002\", \"type\": \"Sugar-Free Cinammon\" },\r\n",
+					"            { \"id\": \"5005\", \"type\": \"Sugar\" },\r\n",
+					"            { \"id\": \"5007\", \"type\": \"Powdered Sugar\" },\r\n",
+					"            { \"id\": \"5006\", \"type\": \"Chocolate with Sprinkles\" },\r\n",
+					"            { \"id\": \"5003\", \"type\": \"Cinammon Sugar\" },\r\n",
+					"            { \"id\": \"5004\", \"type\": \"Maple\" }\r\n",
+					"        ]\r\n",
+					"}\r\n",
+					"\"\"\""
+				],
+				"execution_count": 2
+			},
+			{
+				"cell_type": "markdown",
+				"metadata": {
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"Add the JSON string as a collection type and pass it as an input to `spark.createDataset`. This converts it to a DataFrame. The JSON reader infers the schema automatically from the JSON string.\r\n",
+					"\r\n",
+					"This sample code uses a list collection type, which is represented as `json :: Nil`. You can also use other Scala collection types, such as Seq (Scala Sequence)."
+				]
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"import org.apache.spark.sql.functions._\r\n",
+					"import spark.implicits._\r\n",
+					"val DF= spark.read.json(spark.createDataset(json :: Nil))"
+				],
+				"execution_count": 3
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"DF.show()"
+				],
+				"execution_count": 4
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"val DF_topping = (\r\n",
+					"    DF\r\n",
+					"    .select($\"id\" as \"main_id\",$\"name\",$\"batters\",$\"ppu\",explode($\"topping\")) // Exploding the topping column using explode as it is an array type\r\n",
+					"    .withColumn(\"topping_id\",$\"col.id\") // Extracting topping_id from col using DOT form\r\n",
+					"    .withColumn(\"topping_type\",$\"col.type\") // Extracting topping_tytpe from col using DOT form\r\n",
+					"    .drop($\"col\")\r\n",
+					")\r\n",
+					"\r\n",
+					"val DF_batter = (\r\n",
+					"    DF_topping\r\n",
+					"    .select($\"*\",$\"batters.*\") // Flattened the struct type batters tto array type which is batter\r\n",
+					"    .drop($\"batters\")\r\n",
+					"    .select($\"*\",explode($\"batter\"))\r\n",
+					"    .drop($\"batter\")\r\n",
+					"    .withColumn(\"batter_id\",$\"col.id\") // Extracting batter_id from col using DOT form\r\n",
+					"    .withColumn(\"battter_type\",$\"col.type\") // Extracting battter_type from col using DOT form\r\n",
+					"    .drop($\"col\")\r\n",
+					")"
+				],
+				"execution_count": 5
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					"display(DF_batter)"
+				],
+				"execution_count": 6
+			}
+		]
+	}
+}

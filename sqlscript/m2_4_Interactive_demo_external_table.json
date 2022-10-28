@@ -1,0 +1,20 @@
+{
+	"name": "m2_4_Interactive_demo_external_table",
+	"properties": {
+		"folder": {
+			"name": "dp203_M2"
+		},
+		"content": {
+			"query": "USE dp203_demo;\n\nCREATE MASTER KEY ENCRYPTION BY PASSWORD = 'DP203_!Data123';\nGO;\n\n--CREATE DATABASE SCOPED CREDENTIAL [BlobAccess]\n--WITH IDENTITY = 'SHARED ACCESS SIGNATURE',\n--SECRET = '?sv=2020-08-04&ss=bfqt&srt=sc&sp=rwdlacupx&se=2024-08-01T04:29:08Z&st=2022-05-13T20:29:08Z&spr=https&sig=U8xQrhHjmxPwqcmV9sqxMXjgCL4Y48HI%2FOVljrTTymM%3D';\nCREATE DATABASE SCOPED CREDENTIAL [WorkspaceIdentity]\nWITH IDENTITY = 'Managed Identity';\nGO;\n\n-- Create connection string to where I intend to collect the data from \nCREATE EXTERNAL DATA SOURCE [ecdc_adls] WITH (\n    CREDENTIAL =[WorkspaceIdentity],\n    LOCATION = 'https://pandemicdatalake.blob.core.windows.net/public/curated/covid-19/ecdc_cases/'\n); \nGO;\n\n-- good practice: organize your tables and views in databases schemas\nGO;\nCREATE SCHEMA [ecdc_schema];\nGO;\n\n-- File format\nCREATE EXTERNAL FILE FORMAT [ParquetFormat] WITH (  FORMAT_TYPE = PARQUET );\nGO;\n-- CREATE EXTERNAL FILE FORMAT [CsvFormat] WITH (  FORMAT_TYPE = DELIMITEDTEXT );\n-- GO;\n\n-- Creating an external table\nCREATE EXTERNAL TABLE [ecdc_schema].[cases](\n    date_rep                   DATE,\n    day                        SMALLINT,\n    month                      SMALLINT,\n    year                       SMALLINT,\n    cases                      SMALLINT,\n    deaths                     SMALLINT,\n    countries_and_territories  VARCHAR(256),\n    geo_id                     VARCHAR(60),\n    country_territory_code     VARCHAR(16),\n    pop_data_2018              INT,\n    continent_exp              VARCHAR(32),\n    load_date                  DATETIME,\n    iso_country                VARCHAR(16)\n) WITH (\n    LOCATION = 'latest/ecdc_cases.parquet',\n    DATA_SOURCE= [ecdc_adls],\n    FILE_FORMAT = [ParquetFormat]\n);\nGO;\n/*\nWhere's my data? \n-> Metadata is stored not the actual database!\n\nSELECT TOP 1 *\nFROM [ecdc_schema].[cases]\n\nNOTE: use the smallest possible types for string and number columns to \noptimize performance of your queries where possible\n*/\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "master",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

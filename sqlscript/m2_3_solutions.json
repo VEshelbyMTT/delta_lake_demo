@@ -1,0 +1,20 @@
+{
+	"name": "m2_3_solutions",
+	"properties": {
+		"folder": {
+			"name": "dp203_M2"
+		},
+		"content": {
+			"query": "USE dp203_demo\n\n\n-- I want to find out how many rows I have \n\nSELECT COUNT(*)\nFROM openrowset(\n    BULK 'latest/ecdc_cases.parquet',\n                DATA_SOURCE = 'ecdc_cases',\n                FORMAT ='parquet') AS ecdc_cases_nov_13\n\nWHERE ecdc_cases_nov_13.date_rep = '2020-11-13'\n\n-- Answer : 203 \n\n-- I want to find out which country has the highest deaths/cases\n\nSELECT deaths, countries_and_territories\nFROM openrowset(\n    BULK 'latest/ecdc_cases.parquet',\n                DATA_SOURCE = 'ecdc_cases',\n                FORMAT ='parquet') AS cases\n\nWHERE cases.date_rep = '2020-11-13'\nORDER BY cases.deaths DESC;\nGO;\n-- Brazil ",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "master",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

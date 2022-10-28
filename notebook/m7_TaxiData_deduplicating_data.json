@@ -1,0 +1,625 @@
+{
+	"name": "m7_TaxiData_deduplicating_data",
+	"properties": {
+		"folder": {
+			"name": "dp203_M7"
+		},
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "ApachePoolmed",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "56g",
+			"driverCores": 8,
+			"executorMemory": "56g",
+			"executorCores": 8,
+			"numExecutors": 2,
+			"runAsWorkspaceSystemIdentity": false,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2",
+				"spark.autotune.trackingId": "0c7855a9-5350-436c-8388-73b6b42467a6"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"synapse_widget": {
+				"version": "0.1",
+				"state": {
+					"d257a107-6e6b-4d50-9032-d7c9f2f6695e": {
+						"type": "Synapse.DataFrame",
+						"sync_state": {
+							"table": {
+								"rows": [
+									{
+										"0": "F6F7D02179BE915B23EF2DB57836442D",
+										"1": "088879B44B80CC9ED43724776C539370",
+										"2": "VTS",
+										"3": "1",
+										"5": "2013-01-13 04:36:00",
+										"6": "2013-01-13 04:46:00",
+										"7": "5",
+										"8": "600",
+										"9": "3.12",
+										"10": "-73.996933",
+										"11": "40.720055",
+										"12": "-73.993546",
+										"13": "40.693043",
+										"14": "CRD",
+										"15": "15.0",
+										"16": "0.5",
+										"17": "0.5",
+										"18": "3.1",
+										"19": "0.0",
+										"20": "19.1"
+									},
+									{
+										"0": "F6F7D02179BE915B23EF2DB57836442D",
+										"1": "088879B44B80CC9ED43724776C539370",
+										"2": "VTS",
+										"3": "1",
+										"5": "2013-01-13 04:36:00",
+										"6": "2013-01-13 04:46:00",
+										"7": "5",
+										"8": "600",
+										"9": "3.12",
+										"10": "-73.996933",
+										"11": "40.720055",
+										"12": "-73.993546",
+										"13": "40.693043",
+										"14": "CRD",
+										"15": "12.0",
+										"16": "0.5",
+										"17": "0.5",
+										"18": "1.75",
+										"19": "0.0",
+										"20": "14.75"
+									},
+									{
+										"0": "BE386D8524FCD16B3727DCF0A32D9B25",
+										"1": "4EB96EC9F3A42794DEE233EC8A2616CE",
+										"2": "VTS",
+										"3": "1",
+										"5": "2013-01-13 04:37:00",
+										"6": "2013-01-13 04:48:00",
+										"7": "2",
+										"8": "660",
+										"9": "3.39",
+										"10": "-74.000313",
+										"11": "40.730068",
+										"12": "-73.987373",
+										"13": "40.768406",
+										"14": "CSH",
+										"15": "4.0",
+										"16": "0.0",
+										"17": "0.5",
+										"18": "0.0",
+										"19": "0.0",
+										"20": "4.5"
+									},
+									{
+										"0": "BE386D8524FCD16B3727DCF0A32D9B25",
+										"1": "4EB96EC9F3A42794DEE233EC8A2616CE",
+										"2": "VTS",
+										"3": "1",
+										"5": "2013-01-13 04:37:00",
+										"6": "2013-01-13 04:48:00",
+										"7": "2",
+										"8": "660",
+										"9": "3.39",
+										"10": "-74.000313",
+										"11": "40.730068",
+										"12": "-73.987373",
+										"13": "40.768406",
+										"14": "CSH",
+										"15": "6.0",
+										"16": "0.0",
+										"17": "0.5",
+										"18": "0.0",
+										"19": "0.0",
+										"20": "6.5"
+									},
+									{
+										"0": "BE386D8524FCD16B3727DCF0A32D9B25",
+										"1": "4EB96EC9F3A42794DEE233EC8A2616CE",
+										"2": "VTS",
+										"3": "1",
+										"5": "2013-01-13 04:37:00",
+										"6": "2013-01-13 04:48:00",
+										"7": "2",
+										"8": "660",
+										"9": "3.39",
+										"10": "-74.000313",
+										"11": "40.730068",
+										"12": "-73.987373",
+										"13": "40.768406",
+										"14": "CSH",
+										"15": "12.0",
+										"16": "0.0",
+										"17": "0.5",
+										"18": "0.0",
+										"19": "0.0",
+										"20": "12.5"
+									},
+									{
+										"0": "BE386D8524FCD16B3727DCF0A32D9B25",
+										"1": "4EB96EC9F3A42794DEE233EC8A2616CE",
+										"2": "VTS",
+										"3": "1",
+										"5": "2013-01-13 04:37:00",
+										"6": "2013-01-13 04:48:00",
+										"7": "2",
+										"8": "660",
+										"9": "3.39",
+										"10": "-74.000313",
+										"11": "40.730068",
+										"12": "-73.987373",
+										"13": "40.768406",
+										"14": "CSH",
+										"15": "8.5",
+										"16": "0.0",
+										"17": "0.5",
+										"18": "0.0",
+										"19": "0.0",
+										"20": "9.0"
+									},
+									{
+										"0": "BE386D8524FCD16B3727DCF0A32D9B25",
+										"1": "4EB96EC9F3A42794DEE233EC8A2616CE",
+										"2": "VTS",
+										"3": "1",
+										"5": "2013-01-13 04:37:00",
+										"6": "2013-01-13 04:48:00",
+										"7": "2",
+										"8": "660",
+										"9": "3.39",
+										"10": "-74.000313",
+										"11": "40.730068",
+										"12": "-73.987373",
+										"13": "40.768406",
+										"14": "CSH",
+										"15": "6.5",
+										"16": "0.0",
+										"17": "0.5",
+										"18": "0.0",
+										"19": "0.0",
+										"20": "7.0"
+									},
+									{
+										"0": "BE386D8524FCD16B3727DCF0A32D9B25",
+										"1": "4EB96EC9F3A42794DEE233EC8A2616CE",
+										"2": "VTS",
+										"3": "1",
+										"5": "2013-01-13 04:37:00",
+										"6": "2013-01-13 04:48:00",
+										"7": "2",
+										"8": "660",
+										"9": "3.39",
+										"10": "-74.000313",
+										"11": "40.730068",
+										"12": "-73.987373",
+										"13": "40.768406",
+										"14": "CSH",
+										"15": "5.0",
+										"16": "0.0",
+										"17": "0.5",
+										"18": "0.0",
+										"19": "0.0",
+										"20": "5.5"
+									},
+									{
+										"0": "BE386D8524FCD16B3727DCF0A32D9B25",
+										"1": "4EB96EC9F3A42794DEE233EC8A2616CE",
+										"2": "VTS",
+										"3": "1",
+										"5": "2013-01-13 04:37:00",
+										"6": "2013-01-13 04:48:00",
+										"7": "2",
+										"8": "660",
+										"9": "3.39",
+										"10": "-74.000313",
+										"11": "40.730068",
+										"12": "-73.987373",
+										"13": "40.768406",
+										"14": "CRD",
+										"15": "9.0",
+										"16": "0.0",
+										"17": "0.5",
+										"18": "0.0",
+										"19": "0.0",
+										"20": "9.5"
+									},
+									{
+										"0": "BE386D8524FCD16B3727DCF0A32D9B25",
+										"1": "4EB96EC9F3A42794DEE233EC8A2616CE",
+										"2": "VTS",
+										"3": "1",
+										"5": "2013-01-13 04:37:00",
+										"6": "2013-01-13 04:48:00",
+										"7": "2",
+										"8": "660",
+										"9": "3.39",
+										"10": "-74.000313",
+										"11": "40.730068",
+										"12": "-73.987373",
+										"13": "40.768406",
+										"14": "CRD",
+										"15": "14.5",
+										"16": "0.0",
+										"17": "0.5",
+										"18": "3.62",
+										"19": "0.0",
+										"20": "18.62"
+									}
+								],
+								"schema": [
+									{
+										"key": "0",
+										"name": "medallion",
+										"type": "string"
+									},
+									{
+										"key": "1",
+										"name": "hack_license",
+										"type": "string"
+									},
+									{
+										"key": "2",
+										"name": "vendor_id",
+										"type": "string"
+									},
+									{
+										"key": "3",
+										"name": "rate_code",
+										"type": "string"
+									},
+									{
+										"key": "4",
+										"name": "store_and_fwd_flag",
+										"type": "string"
+									},
+									{
+										"key": "5",
+										"name": "pickup_datetime",
+										"type": "string"
+									},
+									{
+										"key": "6",
+										"name": "dropoff_datetime",
+										"type": "string"
+									},
+									{
+										"key": "7",
+										"name": "passenger_count",
+										"type": "int"
+									},
+									{
+										"key": "8",
+										"name": "trip_time_in_secs",
+										"type": "int"
+									},
+									{
+										"key": "9",
+										"name": "trip_distance",
+										"type": "float"
+									},
+									{
+										"key": "10",
+										"name": "pickup_longitude",
+										"type": "string"
+									},
+									{
+										"key": "11",
+										"name": "pickup_latitude",
+										"type": "string"
+									},
+									{
+										"key": "12",
+										"name": "dropoff_longitude",
+										"type": "string"
+									},
+									{
+										"key": "13",
+										"name": "dropoff_latitude",
+										"type": "string"
+									},
+									{
+										"key": "14",
+										"name": "payment_type",
+										"type": "string"
+									},
+									{
+										"key": "15",
+										"name": "fare_amount",
+										"type": "float"
+									},
+									{
+										"key": "16",
+										"name": "surcharge",
+										"type": "float"
+									},
+									{
+										"key": "17",
+										"name": "mta_tax",
+										"type": "float"
+									},
+									{
+										"key": "18",
+										"name": "tip_amount",
+										"type": "float"
+									},
+									{
+										"key": "19",
+										"name": "tolls_amount",
+										"type": "float"
+									},
+									{
+										"key": "20",
+										"name": "total_amount",
+										"type": "float"
+									}
+								],
+								"truncated": false
+							},
+							"isSummary": false,
+							"language": "scala"
+						},
+						"persist_state": {
+							"view": {
+								"type": "details",
+								"chartOptions": {
+									"chartType": "bar",
+									"aggregationType": "sum",
+									"categoryFieldKeys": [
+										"0"
+									],
+									"seriesFieldKeys": [
+										"7"
+									],
+									"isStacked": false
+								}
+							}
+						}
+					}
+				}
+			},
+			"enableDebugMode": false,
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/4a539c97-ed16-4e64-990d-eecb5e57061e/resourceGroups/Delta_Lake_Example/providers/Microsoft.Synapse/workspaces/traininglakesynapse103/bigDataPools/ApachePoolmed",
+				"name": "ApachePoolmed",
+				"type": "Spark",
+				"endpoint": "https://traininglakesynapse103.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/ApachePoolmed",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net",
+					"authHeader": null
+				},
+				"sparkVersion": "3.1",
+				"nodeCount": 3,
+				"cores": 8,
+				"memory": 56,
+				"extraHeader": null
+			},
+			"sessionKeepAliveTimeout": 30
+		},
+		"cells": [
+			{
+				"cell_type": "markdown",
+				"metadata": {
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"## What this notebook does\r\n",
+					"\r\n",
+					"Cell one: gets File, paths from ingestion, path to save + loads as df in spark\r\n",
+					"\r\n",
+					"Cell two: data transformation of the data cell further\r\n",
+					""
+				]
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"tags": [
+						"parameters"
+					]
+				},
+				"source": [
+					"import uuid \r\n",
+					"from datetime import date\r\n",
+					"\r\n",
+					"default_path = 'm7_running_from_notebook'\r\n",
+					"runID = str(uuid.uuid4())\r\n",
+					"notebook = 'unknown'\r\n",
+					"todays_date = str(date.today())\r\n",
+					"\r\n",
+					"\r\n",
+					"print(runID)"
+				],
+				"execution_count": 1
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false,
+					"tags": []
+				},
+				"source": [
+					"\r\n",
+					"# default table of taking the new dataset\r\n",
+					"FILE = 'part-00001-0d8d63a4-9d24-458a-8dac-ead1d500a492-c000.snappy.parquet'\r\n",
+					"PATH = f'abfss://scratch@traininglakehouse103.dfs.core.windows.net/m6_output/'\r\n",
+					"\r\n",
+					"# Loading the data and using the display/limit function to show first 10 rows. \r\n",
+					"df = spark.read.load(f'{PATH}{FILE}', format='parquet')\r\n",
+					"display(df.limit(10))"
+				],
+				"execution_count": 2
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"df.columns"
+				],
+				"execution_count": 3
+			},
+			{
+				"cell_type": "markdown",
+				"metadata": {
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"## We want to aggregate this table"
+				]
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": true
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false,
+					"tags": []
+				},
+				"source": [
+					"import pyspark.sql.functions as F\r\n",
+					"\r\n",
+					"df_agg = (\r\n",
+					"    df\r\n",
+					"    .drop(F.col('storeFwdFlag'))\r\n",
+					"    .groupBy(['hack_license','medallion','pickup_datetime','dropoff_longitude','dropoff_latitude'])\r\n",
+					"    .agg(\r\n",
+					"        F.round(F.sum('fare_amount'),2).alias('fareAmountTotal'),\r\n",
+					"        F.sum('surcharge').alias('surchageTotal'),\r\n",
+					"        F.round(F.mean('mta_tax'),2).alias('taxTotal'),\r\n",
+					"        F.round(F.mean('tip_amount'),2).alias('tipAmountAverage'),\r\n",
+					"        F.round(F.sum('total_amount'),2).alias('totalAmount')\r\n",
+					"    )\r\n",
+					"\r\n",
+					")\r\n",
+					"\r\n",
+					""
+				],
+				"execution_count": 4
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"print(f'rows from initial dataset: {df.count()}\\n rows from transformation dataset: {df_agg.count()}')"
+				],
+				"execution_count": 5
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					"#display(df_agg)"
+				],
+				"execution_count": 6
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					}
+				},
+				"source": [
+					"DESTINATION_PATH = f'abfss://silver@traininglakehouse103.dfs.core.windows.net/taxi_data/{default_path}/{todays_date}/{notebook}/'\r\n",
+					"\r\n",
+					"\r\n",
+					"(\r\n",
+					"    df_agg\r\n",
+					"    .write\r\n",
+					"    .format(\"delta\")\r\n",
+					"    .mode(\"overwrite\")\r\n",
+					"    .save(f'{DESTINATION_PATH}/{runID}')\r\n",
+					")\r\n",
+					"print(f'created delta file at: {DESTINATION_PATH} under file location: {runID}')"
+				],
+				"execution_count": 7
+			}
+		]
+	}
+}

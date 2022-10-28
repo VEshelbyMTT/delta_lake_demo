@@ -1,0 +1,20 @@
+{
+	"name": "cosmosDB_via_TAP",
+	"properties": {
+		"folder": {
+			"name": "dp203_M9"
+		},
+		"content": {
+			"query": "USE master\nGO;\n\nIF DB_ID(N'CosmosDemo') IS NULL\nBEGIN\n    CREATE DATABASE CosmosDemo\nEND\nGO;\n\nUSE CosmosDemo\nGO;\n\nDROP VIEW IF EXISTS HTAPDemo;\nGO\n\n--CREATE VIEW HTAPDemo\n--AS \nSELECT *\nFROM OPENROWSET(\n    'CosmosDB', --location\n    N'account=trainingcosmosdb103;database=fictionalWorld;key=oNGpioQZp0RWZJOQffyWkQgUsv2djUicGC7AkR06jCdtRudvxwvFsaWWeljHmMGnVihpL9uTWDuFUnpeiU1d5g==',\n    characters_analytical --container name\n) \nWITH( -- selecting specific columns \n    id VARCHAR(30), \n    age INT,\n    attributes VARCHAR(MAX)\n) AS characters\nCROSS APPLY OPENJSON(attributes)\nWITH( -- exploding the column variables into their own rows\n    attribute_name VARCHAR(30),\n    attribute_level INT\n\n)",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "CosmosDemo",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

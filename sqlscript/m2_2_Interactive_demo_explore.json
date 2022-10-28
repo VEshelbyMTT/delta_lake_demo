@@ -1,0 +1,20 @@
+{
+	"name": "m2_2_Interactive_demo_explore",
+	"properties": {
+		"folder": {
+			"name": "dp203_M2"
+		},
+		"content": {
+			"query": "USE dp203_demo;\nGO;\n\nSELECT * FROM OPENROWSET(\n    BULK 'latest/ecdc_cases.parquet',\n                DATA_SOURCE = 'ecdc_cases',\n                FORMAT ='parquet') AS cases\n\n\n\n-- Filter by 1 day : 13/11/2020\n\n-- **What do I want to find out**: \n-- I want to find out how many rows I have \n-- I want to find out which country has the highest deaths/cases\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "dp203_demo",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

@@ -1,0 +1,148 @@
+{
+	"name": "TransformTaxiDataFlow",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ADLS_trip_data1",
+						"type": "DatasetReference"
+					},
+					"name": "GetTaxiDataADLS"
+				},
+				{
+					"dataset": {
+						"referenceName": "ADLS_trip_fare_1",
+						"type": "DatasetReference"
+					},
+					"name": "GetTaxiDataFare"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ADLS_scratch_parquet_temp",
+						"type": "DatasetReference"
+					},
+					"name": "StoreInADLSScratch",
+					"rejectedDataLinkedService": {
+						"referenceName": "traininglakesynapse103-WorkspaceDefaultStorage",
+						"type": "LinkedServiceReference"
+					}
+				}
+			],
+			"transformations": [
+				{
+					"name": "JoinTaxiDataAndFare"
+				},
+				{
+					"name": "FixColumns"
+				},
+				{
+					"name": "FilterVendorID"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          medallion as string,",
+				"          hack_license as string,",
+				"          vendor_id as string,",
+				"          rate_code as string,",
+				"          store_and_fwd_flag as string,",
+				"          pickup_datetime as string,",
+				"          dropoff_datetime as string,",
+				"          passenger_count as string,",
+				"          trip_time_in_secs as string,",
+				"          trip_distance as string,",
+				"          pickup_longitude as string,",
+				"          pickup_latitude as string,",
+				"          dropoff_longitude as string,",
+				"          dropoff_latitude as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> GetTaxiDataADLS",
+				"source(output(",
+				"          medallion as string,",
+				"          { hack_license} as string,",
+				"          { vendor_id} as string,",
+				"          { pickup_datetime} as string,",
+				"          { payment_type} as string,",
+				"          { fare_amount} as string,",
+				"          { surcharge} as string,",
+				"          { mta_tax} as string,",
+				"          { tip_amount} as string,",
+				"          { tolls_amount} as string,",
+				"          { total_amount} as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> GetTaxiDataFare",
+				"GetTaxiDataADLS, GetTaxiDataFare join(GetTaxiDataADLS@medallion == GetTaxiDataFare@medallion",
+				"     && hack_license == { hack_license}",
+				"     && vendor_id == { vendor_id},",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> JoinTaxiDataAndFare",
+				"FilterVendorID select(mapColumn(",
+				"          medallion = GetTaxiDataADLS@medallion,",
+				"          hack_license,",
+				"          vendor_id,",
+				"          rate_code,",
+				"          store_and_fwd_flag,",
+				"          pickup_datetime,",
+				"          dropoff_datetime,",
+				"          passenger_count,",
+				"          trip_time_in_secs,",
+				"          trip_distance,",
+				"          pickup_longitude,",
+				"          pickup_latitude,",
+				"          dropoff_longitude,",
+				"          dropoff_latitude,",
+				"          payment_type = { payment_type},",
+				"          fare_amount = { fare_amount},",
+				"          surcharge = { surcharge},",
+				"          mta_tax = { mta_tax},",
+				"          tip_amount = { tip_amount},",
+				"          tolls_amount = { tolls_amount},",
+				"          total_amount = { total_amount}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> FixColumns",
+				"JoinTaxiDataAndFare filter(vendor_id  != \"CMT\") ~> FilterVendorID",
+				"FixColumns sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          medallion as string,",
+				"          hack_license as string,",
+				"          vendor_id as string,",
+				"          store_and_fwd_flag as string,",
+				"          pickup_datetime as string,",
+				"          dropoff_datetime as string,",
+				"          passenger_count as integer,",
+				"          trip_time_in_secs as integer,",
+				"          trip_distance as float,",
+				"          pickup_longitude as string,",
+				"          pickup_latitude as string,",
+				"          dropoff_longitude as string,",
+				"          dropoff_latitude as string,",
+				"          payment_type as string,",
+				"          fare_amount as float,",
+				"          surcharge as float,",
+				"          mta_tax as float,",
+				"          tip_amount as float,",
+				"          tolls_amount as float,",
+				"          total_amount as float",
+				"     ),",
+				"     format: 'parquet',",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> StoreInADLSScratch"
+			]
+		}
+	}
+}

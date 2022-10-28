@@ -1,0 +1,119 @@
+{
+	"name": "m9_cosmos_demo_OLTP",
+	"properties": {
+		"folder": {
+			"name": "dp203_M9"
+		},
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "ApachePoolmed",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "56g",
+			"driverCores": 8,
+			"executorMemory": "56g",
+			"executorCores": 8,
+			"numExecutors": 2,
+			"runAsWorkspaceSystemIdentity": false,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2",
+				"spark.autotune.trackingId": "306f02a7-88a9-46f0-9c46-75096c8a7fc0"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"synapse_widget": {
+				"version": "0.1"
+			},
+			"enableDebugMode": false,
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/4a539c97-ed16-4e64-990d-eecb5e57061e/resourceGroups/Delta_Lake_Example/providers/Microsoft.Synapse/workspaces/traininglakesynapse103/bigDataPools/ApachePoolmed",
+				"name": "ApachePoolmed",
+				"type": "Spark",
+				"endpoint": "https://traininglakesynapse103.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/ApachePoolmed",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net",
+					"authHeader": null
+				},
+				"sparkVersion": "3.1",
+				"nodeCount": 3,
+				"cores": 8,
+				"memory": 56,
+				"extraHeader": null
+			},
+			"sessionKeepAliveTimeout": 30
+		},
+		"cells": [
+			{
+				"cell_type": "markdown",
+				"source": [
+					"# NOTE\n",
+					"\n",
+					"For Spark 3 Cosmos DB connector has slightly different configuration. Please select different snippest if a Spark 3.1 + pool is attached."
+				]
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"# Load a streaming Spark DataFrame from a Cosmos DB container\n",
+					"\n",
+					"# For Spark 2.4\n",
+					"\"\"\"divinity_2_df = spark.readStream\\\n",
+					"    .format(\"cosmos.oltp\")\\\n",
+					"    .option(\"spark.synapse.linkedService\", \"CosmosLink\")\\\n",
+					"    .option(\"spark.cosmos.container\", \"characters\")\\\n",
+					"    .option(\"spark.cosmos.changeFeed.readEnabled\", \"true\")\\\n",
+					"    .option(\"spark.cosmos.changeFeed.startFromTheBeginning\", \"true\")\\\n",
+					"    .option(\"spark.cosmos.changeFeed.checkpointLocation\", \"/localReadCheckpointFolder\")\\\n",
+					"    .option(\"spark.cosmos.changeFeed.queryName\", \"streamQuery\")\\\n",
+					"    .load()\"\"\"\n",
+					"\n",
+					"# For Spark 3.1 +\n",
+					"divinity_2_df = (spark.readStream\n",
+					"    .format(\"cosmos..changeFeed\")\n",
+					"    .option(\"spark.synapse.linkedService\", \"CosmosLink\")\n",
+					"    .option(\"spark.cosmos.container\", \"characters\")\n",
+					"    .option(\"spark.cosmos.changeFeed.startFrom\", \"Beginning\")\n",
+					"    .option(\"spark.cosmos.changeFeed.mode\", \"Incremental\")\n",
+					"    .option(\"mode\", \"DROPMALFORMED\")\n",
+					"    .load()\n",
+					")\n",
+					"\n",
+					""
+				],
+				"execution_count": 43
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					"divinity_2_df"
+				],
+				"execution_count": 44
+			}
+		]
+	}
+}
