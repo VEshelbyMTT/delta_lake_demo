@@ -1,6 +1,10 @@
 {
 	"name": "TaxiDataToADLSink",
 	"properties": {
+		"linkedServiceName": {
+			"referenceName": "TrainingLakeStorage",
+			"type": "LinkedServiceReference"
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {

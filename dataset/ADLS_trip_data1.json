@@ -1,6 +1,10 @@
 {
 	"name": "ADLS_trip_data1",
 	"properties": {
+		"linkedServiceName": {
+			"referenceName": "TrainingLakeStorage",
+			"type": "LinkedServiceReference"
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
