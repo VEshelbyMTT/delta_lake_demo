@@ -2,7 +2,7 @@
 	"name": "m6_demo_blob_raw_taxi_data",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "TaxiBlobConnectorOct2022",
+			"referenceName": "TaxiTripBlobConnector",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],

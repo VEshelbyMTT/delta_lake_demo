@@ -2,7 +2,7 @@
 	"name": "ScratchDataLake",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "NewAccount",
+			"referenceName": "TrainingLakeStorage",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],

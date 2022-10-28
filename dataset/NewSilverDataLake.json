@@ -2,7 +2,7 @@
 	"name": "NewSilverDataLake",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "NewAccount",
+			"referenceName": "TrainingLakeStorage",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],

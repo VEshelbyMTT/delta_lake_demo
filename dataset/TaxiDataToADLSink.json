@@ -1,10 +1,6 @@
 {
 	"name": "TaxiDataToADLSink",
 	"properties": {
-		"linkedServiceName": {
-			"referenceName": "ConnectToMyDataLakeStore",
-			"type": "LinkedServiceReference"
-		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {

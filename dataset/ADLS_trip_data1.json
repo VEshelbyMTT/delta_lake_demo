@@ -1,10 +1,6 @@
 {
 	"name": "ADLS_trip_data1",
 	"properties": {
-		"linkedServiceName": {
-			"referenceName": "traininglakesynapse103-WorkspaceDefaultStorage",
-			"type": "LinkedServiceReference"
-		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {

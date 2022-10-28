@@ -25,11 +25,7 @@
 						"referenceName": "ADLS_scratch_parquet_temp",
 						"type": "DatasetReference"
 					},
-					"name": "StoreInADLSScratch",
-					"rejectedDataLinkedService": {
-						"referenceName": "traininglakesynapse103-WorkspaceDefaultStorage",
-						"type": "LinkedServiceReference"
-					}
+					"name": "StoreInADLSScratch"
 				}
 			],
 			"transformations": [
@@ -118,6 +114,7 @@
 				"          medallion as string,",
 				"          hack_license as string,",
 				"          vendor_id as string,",
+				"          rate_code as string,",
 				"          store_and_fwd_flag as string,",
 				"          pickup_datetime as string,",
 				"          dropoff_datetime as string,",
