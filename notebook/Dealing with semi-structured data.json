@@ -2,14 +2,10 @@
 	"name": "Dealing with semi-structured data",
 	"properties": {
 		"folder": {
-			"name": "dp203_M4"
+			"name": "m4"
 		},
 		"nbformat": 4,
 		"nbformat_minor": 2,
-		"bigDataPool": {
-			"referenceName": "QueenSpark1",
-			"type": "BigDataPoolReference"
-		},
 		"sessionProperties": {
 			"driverMemory": "28g",
 			"driverCores": 4,
@@ -21,7 +17,7 @@
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "1b789be1-a761-40b8-bb45-bd3087b17fee"
+				"spark.autotune.trackingId": "b2b1b367-0697-4286-bd4f-4280b3e6c0c9"
 			}
 		},
 		"metadata": {
@@ -413,27 +409,11 @@
 			},
 			"enableDebugMode": false,
 			"kernelspec": {
-				"name": "synapse_pyspark",
-				"display_name": "Synapse PySpark"
+				"name": "synapse_spark",
+				"display_name": "scala"
 			},
 			"language_info": {
 				"name": "scala"
-			},
-			"a365ComputeOptions": {
-				"id": "/subscriptions/4a539c97-ed16-4e64-990d-eecb5e57061e/resourceGroups/Delta_Lake_Example/providers/Microsoft.Synapse/workspaces/traininglakesynapse103/bigDataPools/QueenSpark1",
-				"name": "QueenSpark1",
-				"type": "Spark",
-				"endpoint": "https://traininglakesynapse103.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/QueenSpark1",
-				"auth": {
-					"type": "AAD",
-					"authResource": "https://dev.azuresynapse.net",
-					"authHeader": null
-				},
-				"sparkVersion": "3.2",
-				"nodeCount": 10,
-				"cores": 4,
-				"memory": 28,
-				"extraHeader": null
 			},
 			"sessionKeepAliveTimeout": 30
 		},

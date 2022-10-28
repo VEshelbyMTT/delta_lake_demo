@@ -1,6 +1,9 @@
 {
 	"name": "M5_00_CREATE ETL_LOGIN",
 	"properties": {
+		"folder": {
+			"name": "m5"
+		},
 		"content": {
 			"query": "CREATE LOGIN [ELTLogin] WITH PASSWORD = '!Data123'\n\nGO\n\nGRANT CONNECT TO [User]\n",
 			"metadata": {
@@ -8,7 +11,7 @@
 			},
 			"currentConnection": {
 				"databaseName": "master",
-				"poolName": "SampleSQL"
+				"poolName": "Built-in"
 			},
 			"resultLimit": 5000
 		},

@@ -2,7 +2,7 @@
 	"name": "m2_0_Interactive_demo_setup_cleanup",
 	"properties": {
 		"folder": {
-			"name": "dp203_M2"
+			"name": "m2"
 		},
 		"content": {
 			"query": "USE master ;  \nGO;  \nDROP DATABASE dp203_demo;\n--DROP EXTERNAL TABLE ecdc_adls;\nGO  ",

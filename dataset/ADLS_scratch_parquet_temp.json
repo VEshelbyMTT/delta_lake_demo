@@ -29,6 +29,10 @@
 				"type": "UTF8"
 			},
 			{
+				"name": "rate_code",
+				"type": "UTF8"
+			},
+			{
 				"name": "store_and_fwd_flag",
 				"type": "UTF8"
 			},

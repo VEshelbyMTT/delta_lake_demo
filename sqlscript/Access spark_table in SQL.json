@@ -2,7 +2,7 @@
 	"name": "Access spark_table in SQL",
 	"properties": {
 		"folder": {
-			"name": "dp203_M4"
+			"name": "m4"
 		},
 		"content": {
 			"query": "SELECT TOP(10)[passengerCount],\n[AvgTripDistance],\n[SumTripDistance]\nFROM [nycAgg].[dbo].[passengercountaggregates]\n\n",

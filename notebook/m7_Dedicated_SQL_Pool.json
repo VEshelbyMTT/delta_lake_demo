@@ -2,26 +2,22 @@
 	"name": "m7_Dedicated_SQL_Pool",
 	"properties": {
 		"folder": {
-			"name": "dp203_M7"
+			"name": "m7"
 		},
 		"nbformat": 4,
 		"nbformat_minor": 2,
-		"bigDataPool": {
-			"referenceName": "sparkyBoiThird",
-			"type": "BigDataPoolReference"
-		},
 		"sessionProperties": {
-			"driverMemory": "56g",
-			"driverCores": 8,
-			"executorMemory": "56g",
-			"executorCores": 8,
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
 			"numExecutors": 2,
 			"runAsWorkspaceSystemIdentity": false,
 			"conf": {
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "3913e669-c396-4192-8981-ed618b59f510"
+				"spark.autotune.trackingId": "42928424-30ad-4e47-90ad-4bb5c5b97693"
 			}
 		},
 		"metadata": {
@@ -379,22 +375,6 @@
 			"language_info": {
 				"name": "scala"
 			},
-			"a365ComputeOptions": {
-				"id": "/subscriptions/4a539c97-ed16-4e64-990d-eecb5e57061e/resourceGroups/Delta_Lake_Example/providers/Microsoft.Synapse/workspaces/traininglakesynapse103/bigDataPools/sparkyBoiThird",
-				"name": "sparkyBoiThird",
-				"type": "Spark",
-				"endpoint": "https://traininglakesynapse103.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/sparkyBoiThird",
-				"auth": {
-					"type": "AAD",
-					"authResource": "https://dev.azuresynapse.net",
-					"authHeader": null
-				},
-				"sparkVersion": "3.1",
-				"nodeCount": 3,
-				"cores": 8,
-				"memory": 56,
-				"extraHeader": null
-			},
 			"sessionKeepAliveTimeout": 30
 		},
 		"cells": [
@@ -467,7 +447,7 @@
 					"\r\n",
 					"# default table of taking the new dataset\r\n",
 					"FILE = 'part-00000-414ad286-e2e6-4311-837b-9f94c88facb7-c000.snappy.parquet'\r\n",
-					"PATH = f'abfss://bronze@traininglakehouse103.dfs.core.windows.net/taxidata/staged/'\r\n",
+					"PATH = f'abfss://bronze@traininglakehouse104.dfs.core.windows.net/taxidata/staged/'\r\n",
 					"\r\n",
 					"# Loading the data and using the display/limit function to show first 10 rows. \r\n",
 					"df = spark.read.load(f'{PATH}{FILE}', format='parquet')\r\n",

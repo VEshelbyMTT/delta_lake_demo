@@ -2,26 +2,22 @@
 	"name": "m9_cosmos_demo_OLTP",
 	"properties": {
 		"folder": {
-			"name": "dp203_M9"
+			"name": "m9"
 		},
 		"nbformat": 4,
 		"nbformat_minor": 2,
-		"bigDataPool": {
-			"referenceName": "ApachePoolmed",
-			"type": "BigDataPoolReference"
-		},
 		"sessionProperties": {
-			"driverMemory": "56g",
-			"driverCores": 8,
-			"executorMemory": "56g",
-			"executorCores": 8,
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
 			"numExecutors": 2,
 			"runAsWorkspaceSystemIdentity": false,
 			"conf": {
 				"spark.dynamicAllocation.enabled": "false",
 				"spark.dynamicAllocation.minExecutors": "2",
 				"spark.dynamicAllocation.maxExecutors": "2",
-				"spark.autotune.trackingId": "306f02a7-88a9-46f0-9c46-75096c8a7fc0"
+				"spark.autotune.trackingId": "03a2b286-ccd5-4bf5-b579-bb0d7d703421"
 			}
 		},
 		"metadata": {
@@ -36,22 +32,6 @@
 			},
 			"language_info": {
 				"name": "python"
-			},
-			"a365ComputeOptions": {
-				"id": "/subscriptions/4a539c97-ed16-4e64-990d-eecb5e57061e/resourceGroups/Delta_Lake_Example/providers/Microsoft.Synapse/workspaces/traininglakesynapse103/bigDataPools/ApachePoolmed",
-				"name": "ApachePoolmed",
-				"type": "Spark",
-				"endpoint": "https://traininglakesynapse103.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/ApachePoolmed",
-				"auth": {
-					"type": "AAD",
-					"authResource": "https://dev.azuresynapse.net",
-					"authHeader": null
-				},
-				"sparkVersion": "3.1",
-				"nodeCount": 3,
-				"cores": 8,
-				"memory": 56,
-				"extraHeader": null
 			},
 			"sessionKeepAliveTimeout": 30
 		},

@@ -2,7 +2,7 @@
 	"name": "m2_1_Interactive_demo_setup",
 	"properties": {
 		"folder": {
-			"name": "dp203_M2"
+			"name": "m2"
 		},
 		"content": {
 			"query": "USE master;\nGO;\n\n-- creating a database that provides optimal performance for parquet/cosmos (collate)\nCREATE DATABASE dp203_demo\n      COLLATE Latin1_General_100_BIN2_UTF8;\nGO; \n\n-- Switch to our shiny new database\nUSE dp203_demo;\n\n-- Now we have created the database we want to use, let us populate it with an opensource dataset\n-- creating an open connection string to find and populate our data!\n\nCREATE EXTERNAL DATA SOURCE ecdc_cases WITH (\n    LOCATION = 'https://pandemicdatalake.blob.core.windows.net/public/curated/covid-19/ecdc_cases/'\n)\n    ; \nGO;\n\n\n\n     ",

@@ -2,7 +2,7 @@
 	"name": "m2_0_SQL_query",
 	"properties": {
 		"folder": {
-			"name": "dp203_M2"
+			"name": "m2"
 		},
 		"content": {
 			"query": "SELECT @@version",

@@ -1,14 +1,17 @@
 {
 	"name": "Knowing how to tell distributions",
 	"properties": {
+		"folder": {
+			"name": "m5"
+		},
 		"content": {
 			"query": "SELECT \n       OBJECT_SCHEMA_NAME( object_id ) schemaName, \n       OBJECT_NAME( object_id ) tableName,\n       *\nFROM sys.pdw_table_distribution_properties;",
 			"metadata": {
 				"language": "sql"
 			},
 			"currentConnection": {
-				"databaseName": "SQL_pool_low_performance",
-				"poolName": "SQL_pool_low_performance"
+				"databaseName": "master",
+				"poolName": "Built-in"
 			},
 			"resultLimit": 5000
 		},
