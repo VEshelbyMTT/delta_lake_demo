@@ -1,6 +1,10 @@
 {
 	"name": "sales_storecustomers",
 	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AdventureWorksSQLDatabase",
+			"type": "LinkedServiceReference"
+		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [
