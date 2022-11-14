@@ -1,10 +1,6 @@
 {
 	"name": "sales_watermark",
 	"properties": {
-		"linkedServiceName": {
-			"referenceName": "AzureSQLDatabase",
-			"type": "LinkedServiceReference"
-		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [
